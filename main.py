@@ -1,5 +1,6 @@
-import tkinter as ttk
+
 from app.views.login import Login
+from customtkinter import CTk
 
 
 def center_windows(window, width, height):
@@ -13,12 +14,12 @@ def center_windows(window, width, height):
 
 
 def main():
-    root = ttk.Tk()
+    root = CTk()
     root.title("Inventario")
-    # root.geometry("400x650")
+    root.resizable(False, False)
 
     window_width = 400
-    window_height = 600
+    window_height = 520
 
     center_windows(root, window_width, window_height)
 
