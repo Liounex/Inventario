@@ -1,48 +1,54 @@
-# app/views/login.py
-from customtkinter import CTkLabel, CTkButton, CTkEntry, CTkImage
-from PIL import Image
-# import tkinter as tk
-from CTkMessagebox import CTkMessagebox
+# Inventario/app/views/login.py
+import tkinter as tk
+import tkinter.messagebox as msg
+from app.views.menu import main
 
 
-def iniciar_sesion():
-    # logica para el inicio de sesion
-    CTkMessagebox(title="Info", message="Boton Para Acceder")
+def login(root):
+    def on_acceder():
+
+        # Data temporal
+        usuario = 'admin'
+        passwd = '1234'
+
+        # datos de usuario
+        user = entry_user.get()
+        user_pas = entry_passw.get()
+
+        # Validations
+        if user == '' or user_pas == '':
+            msg.showerror("Error","Campos Vacios Favor de Completar")
+        elif user != usuario or user_pas != passwd:
+            msg.showerror("Error", "usuario o cotraseña Incorrecto")
+        else:
+            root.withdraw()
+            main(user, root)
+
+    head = tk.Label(root, text="Inventariado")
+    head.grid(row=0, column=0, columnspan=2, padx=110, pady=7)
+
+    username = tk.Label(root, text="Usuario")
+    username.grid(row=1, column=0, columnspan=2, padx=110, pady=7)
+
+    entry_user = tk.Entry(root,
+                          width=20,
+                          )
+    entry_user.grid(row=2, column=0, columnspan=2, padx=5, pady=7)
+
+    password = tk.Label(root, text="Contraseña")
+    password.grid(row=3, column=0, columnspan=2, padx=5, pady=7)
+
+    entry_passw = tk.Entry(root, show="*",
+                           width=20,
+                           )
+    entry_passw.grid(row=4, column=0, columnspan=2, padx=5, pady=7)
+
+    button_login = tk.Button(root, text="Acceder",
+                             width=15,
+                             bg="blue",
+                             fg="white",
+                             command=on_acceder
+                             )
+    button_login.grid(row=5, column=0, columnspan=2, padx=5, pady=7)
 
 
-def registrarse():
-    CTkMessagebox(title="Info", message="Abre una Nueva Ventana para Registrarse")
-
-
-class Login:
-
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Iniciar Sesion")
-
-        logo = CTkImage(dark_image=Image.open("./app/views/image/inventario.png"),
-                        size=(200, 190))
-
-        self.logomostrar = CTkLabel(root, image=logo, text="")
-        self.logomostrar.pack(pady=10)
-
-        self.label_username = CTkLabel(root, text="Usuario", font=("Arial", 16))
-        self.label_username.pack()
-
-        self.entry_username = CTkEntry(root, width=200)
-        self.entry_username.pack(pady=10)
-
-        self.label_password = CTkLabel(root, text="Contraseña", font=("Arial", 16))
-        self.label_password.pack()
-
-        self.entry_password = CTkEntry(root, show="*", width=200)
-        self.entry_password.pack(pady=10)
-
-        self.button_login = CTkButton(root, text="Acceder", command=iniciar_sesion)
-        self.button_login.pack(pady=8)
-
-        self.button_registrarse = CTkButton(root, text="Nuevo Usuario", command=registrarse)
-        self.button_registrarse.pack(side="left", padx=25)
-
-        self.button_login = CTkButton(root, text="Facebook")
-        self.button_login.pack(side="right", padx=25)

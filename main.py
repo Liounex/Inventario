@@ -1,32 +1,28 @@
-
-from app.views.login import Login
-from customtkinter import CTk
-
-
-def center_windows(window, width, height):
-    screen_width = window.winfo_screenwidth()
-    screen_height = window.winfo_screenheight()
-
-    x = (screen_width - width) // 2
-    y = (screen_height - height) // 2
-
-    window.geometry(f"{width}x{height}+{x}+{y}")
+# Inventario/main.py
+import tkinter as tk
+import tkinter.font as tkfont
+from app.views.login import login
 
 
 def main():
-    root = CTk()
-    root.title("Inventario")
+
+    # Configuracion
+    root = tk.Tk()
+    root.title("Sistema Inventario")
+    root.geometry("300x450")
     root.resizable(False, False)
 
-    window_width = 400
-    window_height = 520
+    # Tipo de letra
+    custom_font = tkfont.Font(family="monospace", size=11, weight="normal")
+    root.option_add("*Font", custom_font)
 
-    center_windows(root, window_width, window_height)
+    # Views
+    login(root)
 
-    Login(root)
-
+    # Run
     root.mainloop()
 
 
-if __name__ == "__main__":
+# Run
+if __name__ == '__main__':
     main()
